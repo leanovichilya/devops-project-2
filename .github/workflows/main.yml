@@ -64,6 +64,7 @@ jobs:
           echo "$SSH_KEY" > key.pem
           chmod 600 key.pem
           echo "$ENV_FILE" > .env
+          scp -i key.pem -o StrictHostKeyChecking=no .env ubuntu@$EC2_HOST:~/
           scp -i key.pem -o StrictHostKeyChecking=no Dockerfile ubuntu@$EC2_HOST:~/
           scp -i key.pem -o StrictHostKeyChecking=no docker-compose.yml ubuntu@$EC2_HOST:~/
           scp -i key.pem -o StrictHostKeyChecking=no app.py ubuntu@$EC2_HOST:~/
