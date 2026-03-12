@@ -63,6 +63,7 @@ jobs:
         run: |
           echo "$SSH_KEY" > key.pem
           chmod 600 key.pem
+          echo "$ENV_FILE" > .env
           scp -i key.pem -o StrictHostKeyChecking=no Dockerfile ubuntu@$EC2_HOST:~/
           scp -i key.pem -o StrictHostKeyChecking=no docker-compose.yml ubuntu@$EC2_HOST:~/
           scp -i key.pem -o StrictHostKeyChecking=no app.py ubuntu@$EC2_HOST:~/
@@ -71,3 +72,4 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           EC2_HOST: ${{ secrets.EC2_HOST }}
+          ENV_FILE: ${{ secrets.ENV_FILE }}
